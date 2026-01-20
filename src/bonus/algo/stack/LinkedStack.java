@@ -17,36 +17,50 @@ public class LinkedStack {
         // ваш код
         // возьмите value из последнего узла
         // назначьте предыдущий к последнему узлу последним узлом
-        int value = this.tail.getValue();
-        this.tail = null;
-        this.size--;
+        int value = tail.getValue();
+
+        if (size > 1) {
+            tail = tail.getPrev();
+        } else {
+            tail = null;
+        }
+
+        size--;
+
         return value;
     }
 
     public int getSize() {
         // ваш код
         // верните размер стека
-        return this.size;
+        return size;
     }
 
     public boolean isEmpty() {
         // ваш код
         // верните ответ на вопрос, не пустой ли стек
-        return this.size == 0;
+        return size == 0;
     }
+
+    public String recurseGetValue(Node tail) {
+        if (tail.getPrev() == null) return String.valueOf(tail.getValue());
+        return recurseGetValue(tail.getPrev());
+    }
+
 
     public String toString() {
         // если есть элементы, пройдитесь по связному списку,
         // выводя элементы.
         // вывод должен быть в точности как в комментариях к main
         // при этом этот метод не должен менять стек!
-
-        if (!isEmpty()) {
-            while (tail != null) {
-                System.out.printf("%d ->");
-            }
-        } else return "EMPTY";
+        /*Добавил аннотацию @Override*/
+        StringBuilder sb = new StringBuilder(size);
+        if (size > 1) {
+                sb.append(String.format("%s -< ", recurseGetValue(tail.getPrev())));
+            //sb.append(tail.getValue());
+            return sb.toString();
+        } else if (size == 1) return String.valueOf(tail.getValue());
+        else return "EMPTY";
     }
-
-
 }
+
