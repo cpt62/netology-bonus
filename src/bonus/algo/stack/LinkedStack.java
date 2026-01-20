@@ -1,5 +1,7 @@
 package bonus.algo.stack;
 
+import java.lang.reflect.Array;
+
 public class LinkedStack {
     private Node tail; // ссылка на последний добавленный узел (обёртку)
     private int size; // размер стека, т.е. количество элементов в нём
@@ -42,25 +44,36 @@ public class LinkedStack {
         return size == 0;
     }
 
-    public String recurseGetValue(Node tail) {
-        if (tail.getPrev() == null) return String.valueOf(tail.getValue());
-        return recurseGetValue(tail.getPrev());
-    }
-
-
     public String toString() {
         // если есть элементы, пройдитесь по связному списку,
         // выводя элементы.
         // вывод должен быть в точности как в комментариях к main
         // при этом этот метод не должен менять стек!
-        /*Добавил аннотацию @Override*/
-        StringBuilder sb = new StringBuilder(size);
+
+        int[] arr = new int[size];
+        StringBuilder sb = new StringBuilder();
+
         if (size > 1) {
-                sb.append(String.format("%s -< ", recurseGetValue(tail.getPrev())));
-            //sb.append(tail.getValue());
-            return sb.toString();
+            Node currentNode = tail;
+
+            for (int i = 0; i < arr.length - 1; i++) {
+                arr[i] = currentNode.getValue();
+                currentNode = currentNode.getPrev();
+            }
+
+            arr[arr.length - 1] = currentNode.getValue();
+
+            for (int i = 0; i < arr.length - 1; i++) {
+                sb.append(String.format("%d -> ", arr[i]));
+            }
+
+            sb.append(arr[arr.length - 1]);
+
         } else if (size == 1) return String.valueOf(tail.getValue());
-        else return "EMPTY";
+        else {
+            return "EMPTY";
+        }
+        return sb.toString();
     }
 }
 
