@@ -50,13 +50,12 @@ public class LinkedStack {
         // вывод должен быть в точности как в комментариях к main
         // при этом этот метод не должен менять стек!
 
-        int[] arr = new int[size];
         StringBuilder sb = new StringBuilder();
 
         if (size > 1) {
             Node currentNode = tail;
 
-            for (int i = 0; i < arr.length - 1; i++) {
+            for (int i = 0; i < size - 1; i++) {
                 sb.append(String.format("%d -> ", currentNode.getValue()));
                 currentNode = currentNode.getPrev();
             }
