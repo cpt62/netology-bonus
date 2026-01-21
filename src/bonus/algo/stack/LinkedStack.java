@@ -57,20 +57,14 @@ public class LinkedStack {
             Node currentNode = tail;
 
             for (int i = 0; i < arr.length - 1; i++) {
-                arr[i] = currentNode.getValue();
+                sb.append(String.format("%d -> ", currentNode.getValue()));
                 currentNode = currentNode.getPrev();
             }
+            sb.append(currentNode.getValue());
 
-            arr[arr.length - 1] = currentNode.getValue();
-
-            for (int i = 0; i < arr.length - 1; i++) {
-                sb.append(String.format("%d -> ", arr[i]));
-            }
-
-            sb.append(arr[arr.length - 1]);
-
-        } else if (size == 1) return String.valueOf(tail.getValue());
-        else {
+        } else if (size == 1) {
+            return String.valueOf(tail.getValue());
+        } else {
             return "EMPTY";
         }
         return sb.toString();
