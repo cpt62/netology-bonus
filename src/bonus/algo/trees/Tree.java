@@ -52,19 +52,22 @@ public class Tree {
 
     public boolean isNamePyramid() {
         // ВАШ КОД
-        /*Логически, что если пирамида пуста, то её тоже можно считать идеально сбалансированным деревом, поэтому true по дефолту*/
-        boolean result = true;
-        Tree left = this.getLeft();
-        Tree right = this.getRight();
-        if (left.getLeft() == null || right.getLeft() == null) return result;
-        if ((this.getName().compareTo(left.getName()) >= 0 && this.getName().compareTo(right.getName()) >= 0)) {
-            left = left.getLeft();
-            right = right.getRight();
-            result = left.isNamePyramid() == right.isNamePyramid();
-        } else {
-            return false;
+
+        Tree left = getLeft();
+        Tree right = getRight();
+
+        //Проверяем левого ребенка на условие пирамидальности
+        if (left != null) {
+            if (left.getName().length() < getName().length()) return false;
         }
-        return result;
+
+        //Проверяем правого ребенка на условие пирамидальности
+        if (right != null) {
+            if (right.getName().length() < getName().length()) return false;
+        }
+
+        return (((left == null) || (left.isNamePyramid())) &&
+                ((right == null) || (right.isNamePyramid())));
     }
 
 
