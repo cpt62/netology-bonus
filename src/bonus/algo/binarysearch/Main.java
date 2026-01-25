@@ -1,4 +1,4 @@
-package bonus.algo.binarySearch;
+package bonus.algo.binarysearch;
 
 public class Main {
     public static void main(String[] args) {
