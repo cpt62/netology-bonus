@@ -24,9 +24,11 @@ public class Main {
             if (prev == null) {
                 // первую подстроку создаём конструктором за линейную асимптотику
                 // ВАШ КОД
+                slice = new LazyString(source, 0, size);
             } else {
                 // все остальные через сдвиг вправо от предыдущей подстроки, за O(1)
                 // ВАШ КОД
+                slice = prev.shiftRight();
             }
             if (slices.contains(slice)) { // проверка на наличие повтора этой подстроки
                 return true; // если уже встречали, значит повторы нет
