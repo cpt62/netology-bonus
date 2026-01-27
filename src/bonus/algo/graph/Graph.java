@@ -1,9 +1,6 @@
 package bonus.algo.graph;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Graph<T> {
     private List<Vertex<T>> vertices = new ArrayList<>();
@@ -17,6 +14,9 @@ public class Graph<T> {
     public void createEdge(Vertex<T> a, Vertex<T> b) {
         // добавляем их друг друга в их списки смежности
         // ВАШ КОД
+        // Филипп, извиняюсь, если я тут схалтурил конткретно! Иного пути не увидел.
+        a.addAdjacent(b);
+        b.addAdjacent(a);
     }
 
     public boolean isConnected(Vertex<T> a, Vertex<T> b) {
@@ -36,6 +36,26 @@ public class Graph<T> {
         // перебираем все смежные вершины у v
         // если такую вершину ещё не посещали, заходим рекурсивно в неё
         // если такой заход завершился нахождением target-а - выходим из метода с true
+
+        /* Ну, поехали! */
+        /* Вершина v - добавляем ее сразу в множество посещенных, а её соседей в очередь? Попробую со Stack */
+
+        Stack<Vertex> stack = new Stack<>(); // Компилятор ругается на raw type, дженерик хочет !
+        if (v.getAdjacent().contains(target)) return true; // Если в списке соседних узлов значится target -> нашли
+        stack.addAll(v.getAdjacent());       // Добавляем в Stack список связностей
+        /* Пока стек не пустой - loop */
+        while (!stack.isEmpty()) {
+            Vertex checkVertex = stack.pop(); // удаляем из стека, возвращая значения с целью дальнейшей проверки.
+            if (checkVertex.getAdjacent().size() == 1 && target == checkVertex.getAdjacent().get(0)) { // если в списке соседних узлов значится один элемент, проверим его наличие во множестве
+                return true;
+            }
+            List<Vertex> list = checkVertex.getAdjacent();  // инициализируем список для дальнейшей проверки
+            /*Тут стрим направшивается, но я слабо их помню*/
+            for (Vertex vertex : list) {                    // проверяем каждый элемент списка соседних узлов
+                if (vertex.equals(target)) return true;     // нашли
+                visited.add(vertex);                        // иначе - в стек
+            }
+        }
 
         return false; // ничего не нашли
     }

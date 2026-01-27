@@ -12,6 +12,12 @@ public class Vertex<T> {
         this.value = value;
     }
 
+    /*Я конечно могу сильно заблуждаться, но другого выхода не вижу, как написать метод добавления смежной вершины*/
+    public void addAdjacent(Vertex<T> vertex) {
+        adjacent.add(vertex);
+    }
+
+
     public List<Vertex> getAdjacent() {
         return adjacent;
     }
