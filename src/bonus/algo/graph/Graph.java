@@ -40,12 +40,12 @@ public class Graph<T> {
         /* Ну, поехали! */
         /* Вершина v - добавляем ее сразу в множество посещенных, а её соседей в очередь? Попробую со Stack */
 
-        Stack<Vertex> stack = new Stack<>(); // Компилятор ругается на raw type, дженерик хочет !
+        ArrayDeque<Vertex> deque = new ArrayDeque<>(); // Компилятор ругается на raw type, дженерик хочет !
         if (v.getAdjacent().contains(target)) return true; // Если в списке соседних узлов значится target -> нашли
-        stack.addAll(v.getAdjacent());       // Добавляем в Stack список связностей
+        deque.addAll(v.getAdjacent());       // Добавляем в Stack список связностей
         /* Пока стек не пустой - loop */
-        while (!stack.isEmpty()) {
-            Vertex checkVertex = stack.pop(); // удаляем из стека, возвращая значения с целью дальнейшей проверки.
+        while (!deque.isEmpty()) {
+            Vertex checkVertex = deque.removeFirst(); // удаляем из стека, возвращая значения с целью дальнейшей проверки.
             if (checkVertex.getAdjacent().size() == 1 && target == checkVertex.getAdjacent().get(0)) { // если в списке соседних узлов значится один элемент, проверим его наличие во множестве
                 return true;
             }
