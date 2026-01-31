@@ -20,33 +20,48 @@ public class DAG<T> {
         Map<Vertex<T>, Integer> paths = new HashMap<>(); // по городу даёт количество полётов чтобы до него добраться из from
         paths.put(from, 0); // добраться из пункта отправления до него же самого можно вообще не летая
 
+        if (from.equals(to)) return 0;
+        if (from.getAdjacent().contains(to)) return 1;
+
         Queue<Vertex<T>> queue = new ArrayDeque<>(); // очередь обхода вершин
         Set<Vertex<T>> added = new HashSet<>(); // запоминаем все когда-либо побывавшие в очереди обхода вершины чтобы не дублироваться
+
         queue.add(from); // начинать будем из города отправления
+        added.add(from);
+
+        /* **************************************** Вопрос ************************************************** */
+        /* ****** Филипп, решил ввести промежуточную переменную для хранения минимальной длины пути ********* */
+
+        int minPath = 0;
 
 
         while (!queue.isEmpty()) { // пока очередь не пуста
             Vertex<T> v = queue.peek(); // вынимаем следующий элемент из очереди
+
             // если v это город назначения, то возвращаем из paths готовый ответ для этой вершины
-            if (v.equals(to)) return paths.get(v);
+            /* А как мы его сразу вернем, если этот путь может являться более весомым, чем иной путь??? */
+
             // перебираем вершины по дугам из v
             for (Vertex<T> vertex : v.getAdjacent()) {
+                if (vertex.getAdjacent().contains(v) && added.contains(vertex)) continue;
                 if (vertex.equals(to)) {
-                    paths.put(v, paths.get(v) + 1);
-                    return paths.get(v);
+                    paths.put(vertex, paths.get(v) + 1);
+                    minPath = minPath == 0 || minPath > paths.get(vertex) ? paths.get(vertex) : minPath;
                 }
-                if (!paths.containsKey(vertex)) {
-                    paths.put(vertex,1);
-                }
+                paths.put(vertex, paths.get(v) + 1);
 
-                if (!added.contains(vertex)) queue.add(vertex);
+
+                if (!added.contains(vertex)) {
+                    added.add(vertex);
+                    queue.add(vertex);
+                }
             }
             queue.remove(v);
             added.add(v);
             // если такую вершину уже добавляли в очередь (воспользуйтесь коллекцией added), то пропускаем её.
             // иначе, добавляем её в очередь, added и paths (подумайте, сколько перелётов будет до этого города, если мы знаем сколько перелётов до v)
         }
-        return -1;
+        return minPath == 0 ? -1 : minPath;
     }
 
 }
