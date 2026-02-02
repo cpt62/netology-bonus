@@ -1,0 +1,29 @@
+# Список сервисов (у нас пока только БД)
+services:
+  # Название сервиса — можешь менять (например, "postgres", "db")
+  db:
+    # Официальный образ PostgreSQL версии 12 (как в курсе Netology)
+    image: postgres:12
+
+    # Имя контейнера — чтобы было удобно в терминале
+    container_name: pg-study
+
+    # Переменные окружения — передаются внутрь контейнера при старте
+    environment:
+      POSTGRES_DB: study_db       # Имя базы данных (создастся автоматически)
+      POSTGRES_USER: postgres     # Имя пользователя
+      POSTGRES_PASSWORD: ${DB_PASSWORD}  # Пароль берётся из .env (безопасно!)
+
+    # Проброс портов: [хост]:[контейнер]
+    ports:
+      - "5432:5432"             # localhost:5432 → контейнер:5432
+
+    # Том (volume) — постоянное хранилище данных
+    # Даже если контейнер удалить — данные останутся
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./initdb:/docker-entrypoint-initdb.d
+
+# Объявление томов (вне services!)
+volumes:
+  pgdata:                       # Именованный том, управляемый Docker
