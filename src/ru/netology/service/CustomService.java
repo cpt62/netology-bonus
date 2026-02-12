@@ -1,4 +1,4 @@
-package ru.netology.homeworks.basic;
+package ru.netology.service;
 
 public class CustomService {
 

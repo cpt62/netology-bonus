@@ -1,6 +1,6 @@
 package ru.netology.homeworks.basic.task2;
 
-import ru.netology.homeworks.basic.CustomService;
+import ru.netology.service.CustomService;
 
 import java.util.Scanner;
 
