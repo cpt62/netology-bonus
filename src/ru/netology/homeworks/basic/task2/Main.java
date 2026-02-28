@@ -40,8 +40,8 @@ public class Main {
                         }
                         break;
                     }
-                    CustomService.setDUTY(CustomService.calcDuty(price, weight));
-                    System.out.printf("Сумма пошлина составляет %d рублей", CustomService.getDUTY());
+                    int result = CustomService.calcDuty(price, weight);
+                    System.out.printf("Сумма пошлины составляет %d рублей", result);
                     break;
                 default:
                     System.out.print("Вы ввели неверное значение, попробуйте снова: ");

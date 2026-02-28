@@ -3,17 +3,9 @@ package ru.netology.service;
 public class CustomService {
 
     //Вынес ставку пошлины в отдельную статическую переменную
-    private static int DUTY;
+    private static final int DUTY = 100;
 
     public static int calcDuty(int price, int weight) {
-        return price / 100 + weight * 100;
-    }
-
-    public static void setDUTY(int DUTY) {
-        CustomService.DUTY = DUTY;
-    }
-
-    public static int getDUTY() {
-        return DUTY;
+        return price / 100 + weight * DUTY;
     }
 }
