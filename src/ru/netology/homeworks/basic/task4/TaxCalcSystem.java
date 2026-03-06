@@ -81,12 +81,9 @@ public class TaxCalcSystem {
                         System.out.println("Такой операции нет");
                 }
             } catch (NumberFormatException nfe) {
-                System.err.println("Введите корректное значение операции (1-3 или end)");
+                System.err.println("Введите корректное значение, согласно условию!");
             }
-
-
         }
         System.out.println("Программа завершена!");
     }
-
 }
