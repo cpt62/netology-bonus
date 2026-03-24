@@ -44,6 +44,7 @@ public class Main {
                 }
             } catch (NumberFormatException e) {
                 System.out.println("Введите корректное значение действия!");
+                System.out.println();
             }
         }
     }
