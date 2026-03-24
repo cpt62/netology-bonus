@@ -1,6 +1,4 @@
-package ru.netology.homeworks.basic.task6;
-
-import org.w3c.dom.ls.LSOutput;
+package ru.netology.homeworks.basic.task7;
 
 import java.util.Random;
 
@@ -14,7 +12,6 @@ public class Matrix {
         matrixInit();
         System.out.println("        Исходная матрица");
         showMatrix(this.COLORS);
-
     }
 
     private void matrixInit() {
@@ -24,11 +21,6 @@ public class Matrix {
                 COLORS[i][j] = random.nextInt(256);
             }
         }
-    }
-
-
-    public int[][] getCOLORS() {
-        return COLORS;
     }
 
     public void showMatrix(int[][] matrix) {
@@ -63,5 +55,14 @@ public class Matrix {
         return turnedMatrix;
     }
 
+    public int[][] turn270ClockWise() {
+        int[][] turnedMatrix = new int[SIZE][SIZE];
+        for (int i = SIZE - 1; i >= 0; i--) {
+            for (int j = 0, k = SIZE - 1; j <= SIZE - 1; j++, k--) {
+                turnedMatrix[j][i] = COLORS[i][k];
+            }
+        }
+        return turnedMatrix;
+    }
 
 }

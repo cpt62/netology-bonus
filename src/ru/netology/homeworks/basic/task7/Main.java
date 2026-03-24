@@ -1,7 +1,4 @@
-package ru.netology.homeworks.basic.task6;
-
-import java.sql.SQLOutput;
-import java.util.Arrays;
+package ru.netology.homeworks.basic.task7;
 
 public class Main {
 
@@ -17,9 +14,8 @@ public class Main {
         resultMatrix = matrix.turn180ClockWise();
         matrix.showMatrix(resultMatrix);
 
-        System.out.println("Транспонируем матрица на 270° по часовой");
+        System.out.println("Транспонируем матрицу на 270° по часовой");
         resultMatrix = matrix.turn270ClockWise();
         matrix.showMatrix(resultMatrix);
     }
-
 }
